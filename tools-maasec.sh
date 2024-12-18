@@ -21,7 +21,7 @@ sudo apt install john hashcat openssl python3-cryptography
 sudo snap install zaproxy -y
 
 #sqlmap is used for sql ingjections and dirb to find directories on a web server
-sudo apt install burpsuite sqlmap dirb -y
+sudo apt install burp sqlmap dirb -y
 
 #python for scripting and a few other misc. tools 
 sudo apt install python3 pwncat tmux git wget curl jq htop -y
