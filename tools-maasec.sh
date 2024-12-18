@@ -6,8 +6,10 @@ sudo apt update && sudo apt upgrade -y
 #Network scanning packages 
 sudo apt install nmap netcat nikto openvas hydra wireshark tcpdump
 
-#Steganography packages 
-sudo apt install steghide zsteg stegsave binwalk ropper -y
+#Steganography packages
+# removed unavailable packages
+#sudo apt install steghide zsteg stegsave binwalk ropper -y
+sudo apt install steghide binwalk -y
 
 #Binary file analysis, wine is used for indows emulation, could add disassembler to this too 
 sudo apt install wine binutils strace ltrace -y
