@@ -21,12 +21,19 @@ sudo apt install john hashcat openssl python3-cryptography
 sudo snap install zaproxy -y
 
 #sqlmap is used for sql ingjections and dirb to find directories on a web server
-sudo apt install burp sqlmap dirb -y
+sudo apt install sqlmap dirb -y
 
 #python for scripting and a few other misc. tools 
 sudo apt install python3 pwncat tmux git wget curl jq htop -y
 
 #python packages that are usefule for exploitation 
 sudo apt install python3-pwntools python3-requests python3-pycryptodome python3-paramiko -y
+
+#Manual Installation of BurpSuite
+cd 
+cd Downloads
+wget -P ~/Downloads https://portswigger-cdn.net/burp/releases/download?product=community&version=2024.11.1&type=Linux
+chmod +x ~/Downloads/burpsuite_community_linux_v2024_11_1.sh 
+.~/Downloads/burpsuite_community_linux_v2024_11_1.sh 
 
 echo "Done!"
