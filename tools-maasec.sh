@@ -3,8 +3,10 @@
 #Update the system before installing packages
 sudo apt update && sudo apt upgrade -y
 
-#Network scanning packages 
-sudo apt install nmap netcat nikto openvas hydra wireshark tcpdump -y
+#Network scanning packages
+# E: Package 'netcat' has no installation candidate
+# sudo apt install nmap netcat nikto openvas hydra wireshark tcpdump -y
+sudo apt install nmap nikto openvas hydra wireshark tcpdump -y
 
 #Steganography packages
 # removed unavailable packages
@@ -24,7 +26,8 @@ sudo snap install zaproxy -y
 sudo apt install sqlmap dirb -y
 
 #python for scripting and a few other misc. tools 
-sudo apt install python3 pwncat tmux git wget curl jq htop -y
+#sudo apt install python3 pwncat tmux git wget curl jq htop -y
+sudo apt install python3 tmux git wget curl jq htop -y
 
 #python packages that are usefule for exploitation 
 sudo apt install python3-pwntools python3-requests python3-pycryptodome python3-paramiko -y
