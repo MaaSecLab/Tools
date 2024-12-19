@@ -43,4 +43,5 @@ echo "Installing BurpSuite!"
 wget -O burpsuite.sh "https://portswigger-cdn.net/burp/releases/download?product=community&version=2024.11.1&type=Linux"
 chmod +x burpsuite.sh
 sudo ./burpsuite.sh
+rm ./burpsuite.sh
 echo "Done!"
