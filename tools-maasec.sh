@@ -60,12 +60,15 @@ wget "$AC_URL" -O "$AC_FILENAME"
 #Unzip 
 tar -zxvf "$AC_FILENAME"
 cd "$AC_DIRNAME" || exit
+# Configuration and installation using aircrack's makefiles
 autoreconf -i
 ./configure --with-experimental
 make
 make install
+#Update dynamic linker cache
 ldconfig
 cd ..
+#Remove waste
 rm -f "$AC_FILENAME"
 rm -rf "$AC_DIRNAME"
 
