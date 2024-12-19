@@ -55,7 +55,9 @@ AC_URL="https://download.aircrack-ng.org/aircrack-ng-1.7.tar.gz"
 AC_FILENAME="aircrack-ng-1.7.tar.gz"
 AC_DIRNAME="aircrack-ng-1.7"
 
+#Download the aircrack file
 wget "$AC_URL" -O "$AC_FILENAME"
+#Unzip 
 tar -zxvf "$AC_FILENAME"
 cd "$AC_DIRNAME" || exit
 autoreconf -i
@@ -63,5 +65,8 @@ autoreconf -i
 make
 make install
 ldconfig
+cd ..
+rm -f "$AC_FILENAME"
+rm -rf "$AC_DIRNAME"
 
 echo "Aircrack-ng installation completed successfully!"
