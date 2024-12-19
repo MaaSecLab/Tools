@@ -7,7 +7,11 @@ sudo apt update && sudo apt upgrade -y
 # E: Package 'netcat' has no installation candidate
 # netcat might already exist; check "which nc"
 # sudo apt install nmap netcat nikto openvas hydra wireshark tcpdump -y
-sudo apt install nmap nikto openvas hydra wireshark tcpdump -y
+sudo apt install nmap nikto openvas hydra tcpdump -y
+
+# install wireshark in non-interactive mode
+# accepts all defaults
+sudo DEBIAN_FRONTEND=noninteractive apt install -y wireshark
 
 #Steganography packages
 # removed unavailable packages
