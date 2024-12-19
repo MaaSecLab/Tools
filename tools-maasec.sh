@@ -4,7 +4,7 @@
 sudo apt update && sudo apt upgrade -y
 
 #Network scanning packages 
-sudo apt install nmap netcat nikto openvas hydra wireshark tcpdump
+sudo apt install nmap netcat nikto openvas hydra wireshark tcpdump -y
 
 #Steganography packages
 # removed unavailable packages
@@ -15,7 +15,7 @@ sudo apt install steghide binwalk -y
 sudo apt install wine binutils strace ltrace -y
 
 #Password cracking 
-sudo apt install john hashcat openssl python3-cryptography
+sudo apt install john hashcat openssl python3-cryptography -y
 
 #Web application pen-testing
 sudo snap install zaproxy -y
