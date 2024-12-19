@@ -1,3 +1,8 @@
+# WARNING! This script works but the package manager of your choice might not containt the packages that we install. 
+# You WILL get many "Package not found" errors, so be prepared to use external resources. This is not a self sufficient script.
+
+
+
 #replace every instacnce in the installer file where apt is found.
 def replace_package_manager_in_file(input_file_path, output_file_path, old_pm, new_pm):
     try:
