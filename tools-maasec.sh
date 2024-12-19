@@ -39,6 +39,7 @@ sudo apt install python3 tmux git wget curl jq htop -y
 sudo apt install python3-pwntools python3-requests python3-pycryptodome python3-paramiko -y
 
 # Installation of BurpSuite
+echo "Installing BurpSuite!"
 wget -O burpsuite.sh "https://portswigger-cdn.net/burp/releases/download?product=community&version=2024.11.1&type=Linux"
 chmod +x burpsuite.sh
 sudo ./burpsuite.sh
