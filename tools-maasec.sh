@@ -26,7 +26,8 @@ sudo snap install zaproxy -y
 #sqlmap is used for sql ingjections and dirb to find directories on a web server
 sudo apt install sqlmap dirb -y
 
-#python for scripting and a few other misc. tools 
+#python for scripting and a few other misc. tools
+# E: Unable to locate package pwncat
 #sudo apt install python3 pwncat tmux git wget curl jq htop -y
 sudo apt install python3 tmux git wget curl jq htop -y
 
