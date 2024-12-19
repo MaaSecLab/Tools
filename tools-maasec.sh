@@ -45,3 +45,23 @@ chmod +x burpsuite.sh
 yes "" | sudo ./burpsuite.sh
 rm ./burpsuite.sh
 echo "Done!"
+
+
+# Certain packages that might be needed for the aircrack-ng installation, needs testing.
+sudo apt-get autoconf -y
+sudo apt install automake libtool shtool pkg-config ethtool rfkill build-essential -y
+
+AC_URL="https://download.aircrack-ng.org/aircrack-ng-1.7.tar.gz"
+AC_FILENAME="aircrack-ng-1.7.tar.gz"
+AC_DIRNAME="aircrack-ng-1.7"
+
+wget "$AC_URL" -O "$AC_FILENAME"
+tar -zxvf "$AC_FILENAME"
+cd "$AC_DIRNAME" || exit
+autoreconf -i
+./configure --with-experimental
+make
+make install
+ldconfig
+
+echo "Aircrack-ng installation completed successfully!"
