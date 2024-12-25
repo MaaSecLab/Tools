@@ -77,12 +77,14 @@ echo "Aircrack-ng installation completed successfully!"
 
 
 
+# Create a wordlist repository
 mkdir -p ~/Desktop/wordlists
 
+# Download directory-list-2.3-small.txt 
 curl -o ~/Desktop/wordlists/directory-list-2.3-small.txt https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/Web-Content/directory-list-2.3-small.txt
 
-curl -o ~/Desktop/wordlists/rockyou.txt.tar.gz https://github.com/zacheller/rockyou/blob/master/rockyou.txt.tar.gz
+# Download rockyou.txt or a zip variant
+curl -o ~/Desktop/wordlists/rockyou.txt ""
 
-tar -xzvf ~/Desktop/wordlists/rockyou.txt.tar.gz -C ~/Desktop/wordlists
 
-sudo rm ~/Desktop/wordlists/rockyou.txt.tar.gz
+# Unzip the rockyou file, if it is a zip file
