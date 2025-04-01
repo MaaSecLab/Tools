@@ -1,4 +1,13 @@
 #!/bin/bash
+FOUND_FLAGS=()
+
+check_for_flag() {
+    local input="$1"
+    # Capture flags that start with the provided flag format and end at the next "}"
+    while IFS= read -r flag; do
+        FOUND_FLAGS+=("$flag")
+    done < <(echo "$input" | grep -Eo "${FLAG_FORMAT}[^}]+}")
+}
 
 # Check if required arguments are provided
 if [ $# -ne 2 ]; then
@@ -34,7 +43,9 @@ analyze_file() {
 
     print_section "EXIFTOOL ANALYSIS"
     if command -v exiftool >/dev/null 2>&1; then
-        exiftool "$file_to_analyze"
+        exif_output=$(exiftool "$file_to_analyze")
+        echo "$exif_output"
+        check_for_flag "$exif_output" # append found flags to FOUND_FLAGS
     else
         echo "exiftool not installed. Install with: sudo apt-get install exiftool"
     fi
@@ -43,7 +54,9 @@ analyze_file() {
     if file "$file_to_analyze" | grep -qi "pdf"; then
         print_section "PDF ANALYSIS"
         if command -v pdfinfo >/dev/null 2>&1; then
-            pdfinfo "$file_to_analyze"
+            pdf_output=$(pdfinfo "$file_to_analyze")
+            echo "$pdf_output"
+            check_for_flag "$pdf_output" # append found flags to FOUND_FLAGS
         else
             echo "pdfinfo not installed. Install with: sudo apt-get install poppler-utils"
         fi
@@ -51,16 +64,36 @@ analyze_file() {
 
     # String analysis
     print_section "STRINGS ANALYSIS"
-    echo "Searching for flag format: $FLAG_FORMAT"
-    strings "$file_to_analyze" | grep -i "$FLAG_FORMAT"
-    echo -e "\nSearching for keyword 'flag':"
-    strings "$file_to_analyze" | grep -i "flag"
+
+    # Capture strings output once
+    strings_output=$(strings "$file_to_analyze")
+
+    # Helper function to search and record flags
+    search_and_record() {
+        local pattern="$1"
+        local desc="$2"
+        echo "Searching for $desc: $pattern"
+        local result
+        result=$(echo "$strings_output" | grep -i "$pattern")
+        if [ -n "$result" ]; then
+            echo "$result"
+            check_for_flag "$result"  # Assumes check_for_flag is defined to append found flags
+        else
+            echo "No flags found matching pattern: $pattern"
+        fi
+        echo ""
+    }
+
+    search_and_record "$FLAG_FORMAT" "flag format"
+    search_and_record "flag" "keyword 'flag'"
 
     # Look for base64 encoded content
     print_section "BASE64 CONTENT"
-    strings "$file_to_analyze" | grep -E '^[A-Za-z0-9+/]{20,}={0,2}$' | while read -r line; do
+    strings "$file_to_analyze" | grep -Eo '[A-Za-z0-9+/]{20,}={0,2}' | while read -r line; do
         echo "Found base64 string: $line"
-        echo "Decoded: $(echo "$line" | base64 -d 2>/dev/null)"
+        decoded=$(echo "$line" | base64 -d 2>/dev/null)
+        echo "Decoded: $decoded"
+        check_for_flag "$decoded" # append found flags to FOUND_FLAGS
     done
 
     # Binwalk analysis
@@ -113,6 +146,17 @@ if [ -d "$TEMP_DIR" ]; then
     else
         echo "Temporary files kept in: $TEMP_DIR"
     fi
+fi
+
+if [ ${#FOUND_FLAGS[@]} -gt 0 ]; then
+    print_section "FLAG FOUND"
+    for flag in "${FOUND_FLAGS[@]}"; do
+        echo "FLAG FOUND: $flag"
+    done
+fi
+
+if [ ${#FOUND_FLAGS[@]} -eq 0 ]; then
+    print_section "NO FLAG FOUND"
 fi
 
 print_section "ANALYSIS COMPLETE"
